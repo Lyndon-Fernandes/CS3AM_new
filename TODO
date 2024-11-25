@@ -1,0 +1,20 @@
+- Check if volume value is in millions or something which is not mentioned in csv so:
+  431 might be 431 million [Checked][Not the case]
+- Check for Null values [no null values]
+- Check for Number of rows [1.1 million]
+
+
+- Moving average for x days
+- Calculate percentage change so hourly returns
+
+  - Will be good for ARIMA modelling.
+
+- Models I plan to use:
+  - ARIMA
+  - Random forrest Regressor
+    - Deep learning
+      - LSTM
+
+
+- Question to answer: can I predict the SP500 using these indivisual stocks rather than sp500 dataset
+- Which stock
