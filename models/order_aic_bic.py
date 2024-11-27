@@ -58,7 +58,7 @@ df = read_and_format_csv(
 df["Returns"] = df["Adj Close"].pct_change()
 df = df[["Date", "Returns"]].dropna().set_index("Date")
 
-num_args_p, num_args_q = (27, 54), (27, 54)
+num_args_p, num_args_q = (0, 27), (0, 27)
 
 order_ai_bic = []
 total_start = time.time()
