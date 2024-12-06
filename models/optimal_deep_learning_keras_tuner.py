@@ -14,12 +14,7 @@ from pathlib import Path
 import tensorflow as tf
 
 RAW_DATA_PATH = Path("__file__").absolute().parents[0] / "data" / "01_raw"
-MODEL_out = (
-    Path("__file__").absolute().parents[0]
-    / "models"
-    / "model_outputs"
-    / "post_hyperparam_tuning"
-)
+MODEL_out = Path("__file__").absolute().parents[0] / "models" / "model_outputs"
 
 print(tf.config.list_physical_devices("GPU"))
 
@@ -127,7 +122,7 @@ tuner = RandomSearch(
     objective="loss",
     max_trials=5,
     executions_per_trial=3,
-    directory="../models/tuning",
+    directory=str(MODEL_out / "deep_tuning_params"),
     project_name="LSTM_tuning",
 )
 
@@ -144,6 +139,6 @@ best_hps = tuner.get_best_hyperparameters(num_trials=1)[0]
 model = tuner.hypermodel.build(best_hps)
 
 loss = model.evaluate(X_test, y_test)
-model.save("../models/model_outputs/post_hyperparam_tuning/keras_tuning_best_LSTM.h5")
-model.save(str(MODEL_out / "keras_tuning_best_LSTM.h5"))
+
+model.save(str(MODEL_out / "post_hyperparam_tuning" / "keras_tuning_best_LSTM.h5"))
 print("Validation loss: ", loss)
