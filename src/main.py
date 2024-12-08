@@ -174,7 +174,10 @@ BLUE_CHIP_STOCKS_20 = {
 
 
 def get_dataset() -> None:
-    # Get data for stocks using yfinance yahoo api
+    """
+    Get data for stocks using yfinance yahoo api, and save to csv
+    and a concatenated version based on sector, eg, Information_Technology
+    """
     for industry, stocks in BLUE_CHIP_STOCKS_20.items():
         print("=" * 10, industry, "=" * 10)
         dataset_location = RAW_DATA_PATH / industry
@@ -189,14 +192,6 @@ def get_dataset() -> None:
 
         industry_frame = pd.concat(frames)
         industry_frame.to_csv(f"{str(PROCESSED_DATA_PATH)}/{industry}.csv", index=0)
-
-
-def transform_2():
-    pass
-
-
-def transform_3():
-    pass
 
 
 get_dataset()

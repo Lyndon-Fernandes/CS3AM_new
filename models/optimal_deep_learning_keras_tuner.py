@@ -22,6 +22,15 @@ print(tf.config.list_physical_devices("GPU"))
 def read_and_format_csv(
     subfolder_path: Path,
 ) -> pd.DataFrame:
+    """
+    Reads and formats a DataFrame correcting filetypes and date time values
+
+    Args:
+        subfolder_path (Path): Path to a csv file to read
+
+    Returns:
+        pd.DataFrame: formatted dataframe
+    """
     path = str(RAW_DATA_PATH / subfolder_path)
     df = pd.read_csv(path)
 
@@ -86,6 +95,14 @@ early_stopping = EarlyStopping(
 
 
 def build_model(hp):
+    """
+    Builds a model with sample of hyperparameters
+    Args:
+        hp (HyperModels): allows the ability to specify hyperparameter range
+
+    Returns:
+        Sequential keras model: returns best model params weights and biases
+    """
     model = Sequential(
         [
             LSTM(
@@ -117,6 +134,10 @@ def build_model(hp):
     return model
 
 
+"""Finds optimal parameters by Randomly sampling a set of hyperparameters 
+training the model and evaluating performance over a certain metric. 
+"""
+
 tuner = RandomSearch(
     build_model,
     objective="loss",
@@ -140,5 +161,6 @@ model = tuner.hypermodel.build(best_hps)
 
 loss = model.evaluate(X_test, y_test)
 
+# Save the best model
 model.save(str(MODEL_out / "post_hyperparam_tuning" / "keras_tuning_best_LSTM.h5"))
 print("Validation loss: ", loss)

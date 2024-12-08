@@ -129,6 +129,8 @@ best_params = None
 history_dict = {}
 
 for params in param_combinations:
+    """GridSearch approach with trying all range of hyperparmeter compinations
+    """
     print(f"Training with parameters: {params}")
 
     # Create and train model
